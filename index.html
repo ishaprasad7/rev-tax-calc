@@ -4,117 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settlement Calculator</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f9fc;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .calculator {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #385b83;
-        }
-
-        .table {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .table th, .table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table th {
-            background-color: #f0f4f8;
-        }
-
-        .input-container {
-            display: flex;
-            align-items: center;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            outline: none;
-        }
-
-        .input-container span {
-            padding: 10px;
-            background-color: #f0f4f8;
-            border: 1px solid #ccc;
-            border-left: none;
-            border-radius: 0 5px 5px 0;
-            font-weight: bold;
-        }
-
-        .input-container input[type="number"]:focus {
-            border-color: #385b83;
-        }
-
-        .calculated {
-            font-weight: bold;
-            color: #385b83;
-        }
-
-        .bulk-upload {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .template-button, .upload-button, .download-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .template-button {
-            background-color: #007bff;
-            color: #fff;
-        }
-        .upload-button {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .download-button {
-            background-color: #28a745;
-            color: #fff;
-        }
-
-        .upload-button:hover {
-            background-color: #0056b3;
-        }
-
-        .download-button:hover {
-            background-color: #218838;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="calculator">
+<body class="bg-gradient-to-r from-blue-50 to-green-100 min-h-screen flex flex-col items-center" style="background-image: url('bg.jpg');">
+    <!-- Full-Width Header -->
+    <header class="bg-blue-600 text-white shadow-md w-full py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center space-x-4">
+                <img src="jira-logo-scaled-mb.png" alt="Logo" class="h-10 w-auto object-contain">
+                
+            </div>
+            
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-4">
+                <h1 class="text-2xl font-thin">Settlement Calculator</h1>
+                <!-- <a href="#" class="text-white hover:text-gray-300">Home</a>
+                <a href="#" class="text-white hover:text-gray-300">About</a>
+                <a href="#" class="text-white hover:text-gray-300">Contact</a> -->
+            </nav>
+            
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="bg-white bg-opacity-90 rounded-lg shadow-lg p-6 w-full max-w-6xl mt-6">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Input Table -->
+        <table class="w-full text-sm border-collapse border border-gray-200 mb-6">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-gray-300">Input Fields</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-1 px-4 border-b">Landing Price (Inc. GST) (A)</td>
+                    <td class="py-1 px-4 border-b">
+                        <input type="number" id="landingPrice" placeholder="Enter amount" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="py-1 px-4 border-b">Margin% (B)</td>
+                    <td class="py-1 px-4 border-b">
+                        <div class="flex items-center">
+                            <input type="number" id="marginPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
+                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="py-1 px-4 border-b">GST% on Product (C)</td>
+                    <td class="py-1 px-4 border-b">
+                        <div class="flex items-center">
+                            <input type="number" id="gstProductPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
+                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="py-1 px-4 border-b">Commission% (D)</td>
+                    <td class="py-1 px-4 border-b">
+                        <div class="flex items-center">
+                            <input type="number" id="commissionPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
+                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Calculated Table -->
+        <table class="w-full text-sm border-collapse border border-gray-200 mb-8">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-gray-300">Calculated Fields</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-3 px-4 border-b">Margin in INR (F)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="marginINR">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">Customer Selling Price (Exc. GST) (G)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceExcGST">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">GST on Product in INR (H)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstINR">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">Customer Selling Price (Inc. GST) (I)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceIncGST">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">Commission Amount in INR (J)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="commissionINR">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">GST on Commission in INR (K)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstOnCommission">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">GST Input (L)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstInput">0.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">Seller Payout (M)</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellerPayout">0.00</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+        <!-- Bulk Upload Section -->
+        <div class="text-center space-y-4">
+            <!-- Section Heading -->
+            <h3 class="text-xl font-semibold text-gray-700">Bulk Upload</h3>
+            
+            <!-- Button Groups -->
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Download Template Button -->
+                <button 
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" 
+                    onclick="downloadFile()">
+                    Download Sample Template
+                </button>
+                
+                <!-- Upload Group -->
+                <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-md">
+                    <!-- Upload File Button -->
+                    <label for="fileUpload" class="cursor-pointer py-2 px-4 bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500">
+                        Upload File
+                        <input 
+                            type="file" 
+                            id="fileUpload" 
+                            accept=".xlsx" 
+                            class="hidden"
+                        >
+                    </label>
+                    
+                    <!-- Upload and Process Button -->
+                    <button onclick="processFile()"
+                        class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 focus:ring-2 focus:ring-green-500">
+                        Upload and Process
+                    </button>
+                </div>
+                
+                <!-- Download Results Button -->
+                <button 
+                    class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" 
+                    onclick="downloadResults()">
+                    Download Results
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="calculator">
         <h2>Settlement Calculator</h2>
 
         <table class="table">
@@ -206,7 +258,7 @@
             <button class="upload-button" onclick="processFile()">Upload and Process</button>
             <button class="download-button" onclick="downloadResults()">Download Results</button>
         </div>
-    </div>
+    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>
