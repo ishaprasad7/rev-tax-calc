@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Calculator</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #385b83;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f0f4f8;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .input-container span {
+            padding: 10px;
+            background-color: #f0f4f8;
+            border: 1px solid #ccc;
+            border-left: none;
+            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+        }
+
+        .input-container input[type="number"]:focus {
+            border-color: #385b83;
+        }
+
+        .calculated {
+            font-weight: bold;
+            color: #385b83;
+        }
+
+        .bulk-upload {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .template-button, .upload-button, .download-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .template-button {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .upload-button {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .download-button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+
+        .download-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Settlement Calculator</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">Input Fields</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Landing Price (Inc. GST) (A)</th>
+                    <td><input type="number" id="landingPrice" placeholder="Enter amount" oninput="calculateSettlement()"></td>
+                </tr>
+                <tr>
+                    <th>Margin% (B)</th>
+                    <td>
+                        <div class="input-container">
+                            <input type="number" id="marginPercent" placeholder="Enter %" oninput="calculateSettlement()">
+                            <span>%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>GST% on Product (C)</th>
+                    <td>
+                        <div class="input-container">
+                            <input type="number" id="gstProductPercent" placeholder="Enter %" oninput="calculateSettlement()">
+                            <span>%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Commission% (D)</th>
+                    <td>
+                        <div class="input-container">
+                            <input type="number" id="commissionPercent" placeholder="Enter %" oninput="calculateSettlement()">
+                            <span>%</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">Calculated Fields</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Margin in INR (F)</th>
+                    <td><span id="marginINR" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>Customer Selling Price (Exc. GST) (G)</th>
+                    <td><span id="sellingPriceExcGST" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>GST on Product in INR (H)</th>
+                    <td><span id="gstINR" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>Customer Selling Price (Inc. GST) (I)</th>
+                    <td><span id="sellingPriceIncGST" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>Commission Amount in INR (J)</th>
+                    <td><span id="commissionINR" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>GST on Commission in INR (K)</th>
+                    <td><span id="gstOnCommission" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>GST Input (L)</th>
+                    <td><span id="gstInput" class="calculated">0.00</span></td>
+                </tr>
+                <tr>
+                    <th>Seller Payout (M)</th>
+                    <td><span id="sellerPayout" class="calculated">0.00</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="bulk-upload">
+            <h3>Bulk Upload</h3>
+            <button class="template-button" onclick="downloadFile()">Download Sample Template</button>
+            <input type="file" id="fileUpload" accept=".xlsx">
+            <button class="upload-button" onclick="processFile()">Upload and Process</button>
+            <button class="download-button" onclick="downloadResults()">Download Results</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script>
+    let processedData = [];
+
+    function calculateSettlement() {
+        const A = parseFloat(document.getElementById("landingPrice").value) || 0;
+        const B = (parseFloat(document.getElementById("marginPercent").value) || 0) / 100;
+        const C = (parseFloat(document.getElementById("gstProductPercent").value) || 0) / 100;
+        const D = (parseFloat(document.getElementById("commissionPercent").value) || 0) / 100;
+        const E = 0.18; // Fixed GST on commission
+
+        const F = A * B; // Margin in INR
+        const G = (A + F) / (1 - (1 + C) * D * (1 + E)+(1 + C) * D * (E)); // Selling Price Ex. GST
+        const H = G * C; // GST on Product in INR
+        const I = G + H; // Selling Price Inc. GST
+        const J = I * D; // Commission Amount
+        const K = J * E; // GST on Commission
+        const L = K; // GST Input
+        const M = I - J - K; // Seller Payout
+
+        document.getElementById("marginINR").innerText = F.toFixed(2);
+        document.getElementById("sellingPriceExcGST").innerText = G.toFixed(2);
+        document.getElementById("gstINR").innerText = H.toFixed(2);
+        document.getElementById("sellingPriceIncGST").innerText = I.toFixed(2);
+        document.getElementById("commissionINR").innerText = J.toFixed(2);
+        document.getElementById("gstOnCommission").innerText = K.toFixed(2);
+        document.getElementById("gstInput").innerText = L.toFixed(2);
+        document.getElementById("sellerPayout").innerText = M.toFixed(2);
+    }
+
+    function processFile() {
+        const fileInput = document.getElementById("fileUpload");
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Please select a file to upload.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+            // Process the data
+            processedData = jsonData.slice(1).map(row => {
+                const [A, B, C, D] = row.map(val => parseFloat(val) || 0);
+                const E = 0.18; // Fixed GST on commission
+
+                const F = A * B; // Margin in INR
+                const G = (A + F) / (1 - (1 + C) * D * (1 + E)+(1 + C) * D * (E)); // Selling Price Ex. GST
+                const H = G * C; // GST on Product
+                const I = G + H; // Selling Price Inc. GST
+                const J = I * D; // Commission Amount
+                const K = J * E; // GST on Commission
+                const M = I - J - K; // Seller Payout
+
+                return [A, B, C, D, F, G, H, I, J, K, M];
+            });
+
+            alert("File processed successfully!");
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function downloadResults() {
+        if (!processedData.length) {
+            alert("No data to download. Please process a file first.");
+            return;
+        }
+
+        const workbook = XLSX.utils.book_new();
+        const data = [
+            ["Landing Price", "Margin%", "GST%", "Commission%", "Margin INR", "Selling Price (Ex. GST)", "GST INR", "Selling Price (Inc. GST)", "Commission INR", "GST on Commission INR", "Seller Payout"],
+            ...processedData
+        ];
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Processed Data");
+        XLSX.writeFile(workbook, "Processed_Results.xlsx");
+    }
+</script>
