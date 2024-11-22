@@ -19,9 +19,7 @@
             <!-- Navigation Links -->
             <nav class="hidden md:flex space-x-4">
                 <h1 class="text-2xl font-thin">Settlement Calculator</h1>
-                <!-- <a href="#" class="text-white hover:text-gray-300">Home</a>
-                <a href="#" class="text-white hover:text-gray-300">About</a>
-                <a href="#" class="text-white hover:text-gray-300">Contact</a> -->
+                
             </nav>
             
             <!-- Mobile Menu Icon -->
@@ -139,7 +137,7 @@
                 <a 
                     href="Sample_Template.xlsx" 
                     download="Sample_Template.xlsx"
-                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="bg-indigo-800 hover:bg-indigo-900 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Download Sample Template
                 </a>
                 
@@ -147,7 +145,7 @@
                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-md">
                     <!-- Upload File Button -->
                     <label for="fileUpload" class="cursor-pointer py-2 px-4 bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500">
-                        Upload File
+                        Browse File &nbsp;&nbsp;&nbsp;&nbsp;
                         <input 
                             type="file" 
                             id="fileUpload" 
@@ -158,14 +156,14 @@
                     
                     <!-- Upload and Process Button -->
                     <button onclick="processFile()"
-                        class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 focus:ring-2 focus:ring-green-500">
+                        class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 focus:ring-2 focus:ring-green-500">
                         Upload and Process
                     </button>
                 </div>
                 
                 <!-- Download Results Button -->
                 <button 
-                    class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" 
+                    class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" 
                     onclick="downloadResults()">
                     Download Results
                 </button>
