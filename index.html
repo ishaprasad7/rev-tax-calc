@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gradient-to-r from-blue-50 to-green-100 min-h-screen flex flex-col items-center" style="background-image: url('bg.jpg');">
     <!-- Full-Width Header -->
-    <header class="bg-blue-600 text-white shadow-md w-full py-4">
+    <header class="bg-indigo-900 text-white shadow-md w-full py-4">
         <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
             <!-- Logo and Title -->
             <div class="flex items-center space-x-4">
@@ -45,13 +45,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="py-1 px-4 border-b">Landing Price (Inc. GST) (A)</td>
+                    <td class="py-1 px-4 border-b">Landing Price (Inc. GST)</td>
                     <td class="py-1 px-4 border-b">
                         <input type="number" id="landingPrice" placeholder="Enter amount" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-1 px-4 border-b">Margin% (B)</td>
+                    <td class="py-1 px-4 border-b">Margin%</td>
                     <td class="py-1 px-4 border-b">
                         <div class="flex items-center">
                             <input type="number" id="marginPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
@@ -60,7 +60,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-1 px-4 border-b">GST% on Product (C)</td>
+                    <td class="py-1 px-4 border-b">GST% on Product</td>
                     <td class="py-1 px-4 border-b">
                         <div class="flex items-center">
                             <input type="number" id="gstProductPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
@@ -69,7 +69,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-1 px-4 border-b">Commission% (D)</td>
+                    <td class="py-1 px-4 border-b">Commission%</td>
                     <td class="py-1 px-4 border-b">
                         <div class="flex items-center">
                             <input type="number" id="commissionPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
@@ -87,36 +87,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="py-3 px-4 border-b">Margin in INR (F)</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="marginINR">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">Customer Selling Price (Exc. GST) (G)</td>
+                    <td class="py-3 px-4 border-b">Customer Selling Price (Exc. GST)</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceExcGST">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">GST on Product in INR (H)</td>
+                    <td class="py-3 px-4 border-b">GST on Product in INR</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstINR">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">Customer Selling Price (Inc. GST) (I)</td>
+                    <td class="py-3 px-4 border-b">Customer Selling Price (Inc. GST)</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceIncGST">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">Commission Amount in INR (J)</td>
+                    <td class="py-3 px-4 border-b">Margin in INR</td>
+                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="marginINR">0.00</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td class="py-3 px-4 border-b">Commission Amount in INR</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="commissionINR">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">GST on Commission in INR (K)</td>
+                    <td class="py-3 px-4 border-b">GST on Commission in INR</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstOnCommission">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">GST Input (L)</td>
+                    <td class="py-3 px-4 border-b">GST Input</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstInput">0.00</td>
                 </tr>
                 <tr>
-                    <td class="py-3 px-4 border-b">Seller Payout (M)</td>
+                    <td class="py-3 px-4 border-b">Seller Payout</td>
                     <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellerPayout">0.00</td>
                 </tr>
             </tbody>
