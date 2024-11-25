@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settlement Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-blue-50 to-green-100 min-h-screen flex flex-col items-center" style="background-image: url('bg.jpg');">
+
+<body class="bg-gradient-to-r from-blue-50 to-green-100 min-h-screen flex flex-col items-center"
+    style="background-image: url('bg.jpg');">
     <!-- Full-Width Header -->
     <header class="bg-indigo-900 text-white shadow-md w-full py-4">
         <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
             <!-- Logo and Title -->
             <div class="flex items-center space-x-4">
                 <img src="jira-logo-scaled-mb.png" alt="Logo" class="h-10 w-auto object-contain">
-                
+
             </div>
-            
+
             <!-- Navigation Links -->
             <nav class="hidden md:flex space-x-4">
                 <h1 class="text-2xl font-thin">Settlement Calculator</h1>
-                <!-- <a href="#" class="text-white hover:text-gray-300">Home</a>
-                <a href="#" class="text-white hover:text-gray-300">About</a>
-                <a href="#" class="text-white hover:text-gray-300">Contact</a> -->
+
             </nav>
-            
+
             <!-- Mobile Menu Icon -->
             <button class="md:hidden text-white focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
@@ -34,100 +36,125 @@
     </header>
 
     <!-- Main Content -->
-    <div class="bg-white font-light bg-opacity-90 rounded-lg shadow-lg p-6 w-full max-w-6xl mt-6">
+    <div class="bg-white font-normal bg-opacity-90 rounded-lg shadow-lg p-6 w-full max-w-6xl mt-6">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Input Table -->
-        <table class="w-full text-sm border-collapse border border-gray-200 mb-6">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-gray-300">Input Fields</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="py-1 px-4 border-b">Landing Price (Exc. GST)</td>
-                    <td class="py-1 px-4 border-b">
-                        <input type="number" id="landingPrice" placeholder="Enter amount" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-1 px-4 border-b">Margin%</td>
-                    <td class="py-1 px-4 border-b">
-                        <div class="flex items-center">
-                            <input type="number" id="marginPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
-                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-1 px-4 border-b">GST% on Product</td>
-                    <td class="py-1 px-4 border-b">
-                        <div class="flex items-center">
-                            <input type="number" id="gstProductPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
-                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-1 px-4 border-b">Commission%</td>
-                    <td class="py-1 px-4 border-b">
-                        <div class="flex items-center">
-                            <input type="number" id="commissionPercent" placeholder="Enter %" class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400" oninput="calculateSettlement()">
-                            <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- Calculated Table -->
-        <table class="w-full text-sm border-collapse border border-gray-200 mb-8">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-gray-300">Calculated Fields</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <td class="py-3 px-4 border-b">Customer Selling Price (Exc. GST)</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceExcGST">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">GST on Product in INR</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstINR">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">Customer Selling Price (Inc. GST)</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceIncGST">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">Margin in INR</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="marginINR">0.00</td>
-                </tr>
-                <tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">Commission Amount in INR</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="commissionINR">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">GST on Commission in INR</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstOnCommission">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">GST Input</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstInput">0.00</td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-4 border-b">Seller Payout</td>
-                    <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellerPayout">0.00</td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="w-full text-sm border-collapse border border-indigo-100 mb-6">
+                <thead>
+                    <tr class="bg-indigo-100">
+                        <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-indigo-200">Input Fields
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-4 border-b">Landing Price (Inc. GST)</td>
+                        <td class="py-1 px-4 border-b">
+                            <input type="number" id="landingPrice" placeholder="Enter amount"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                oninput="calculateSettlement()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-4 border-b">Margin%</td>
+                        <td class="py-1 px-4 border-b">
+                            <div class="flex items-center">
+                                <input type="number" id="marginPercent" placeholder="Enter %"
+                                    class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    oninput="calculateSettlement()">
+                                <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-4 border-b">GST% on Product</td>
+                        <td class="py-1 px-4 border-b">
+                            <div class="flex items-center">
+                                <input type="number" id="gstProductPercent" placeholder="Enter %"
+                                    class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    oninput="calculateSettlement()">
+                                <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-4 border-b">Commission%</td>
+                        <td class="py-1 px-4 border-b">
+                            <div class="flex items-center">
+                                <input type="number" id="commissionPercent" placeholder="Enter %"
+                                    class="w-full px-4 py-2 border-l border-t border-b rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    oninput="calculateSettlement()">
+                                <span class="px-4 py-2 bg-gray-100 border rounded-r-md">%</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Calculated Table -->
+            <div>
+                <table class="w-full text-sm border-collapse border border-indigo-100 mb-8">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-indigo-200">
+                                For the Customer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-3 px-4 border-b">Customer Selling Price (Exc. GST)</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold w-1/4" id="sellingPriceExcGST">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">GST on Product in INR</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstINR">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">Customer Selling Price (Inc. GST)</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellingPriceIncGST">0.00</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="w-full text-sm border-collapse border border-indigo-100 mb-8">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th colspan="2" class="py-3 px-4 text-left font-medium border-b border-indigo-200">For the Seller</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="py-3 px-4 border-b">Margin in INR</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold w-1/4" id="marginINR">0.00</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">Commission Amount in INR</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="commissionINR">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">GST on Commission in INR</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstOnCommission">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">GST Input in INR</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="gstInput">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b">Seller Payout in Bank</td>
+                            <td class="py-3 px-4 border-b text-blue-600 font-semibold" id="sellerPayout">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        
+
         <!-- Bulk Upload Section -->
         <div class="text-center space-y-4">
             <!-- Section Heading -->
             <h3 class="text-xl font-semibold text-gray-700">Bulk Upload</h3>
-            
+
             <!-- Button Groups -->
             <div class="flex flex-wrap justify-center gap-4">
                 <!-- Download Template Button -->
@@ -136,216 +163,118 @@
                     onclick="downloadFile()">
                     Download Sample Template
                 </button> -->
-                <a 
-                    href="Sample_Template.xlsx" 
-                    download="Sample_Template.xlsx"
-                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <a href="Sample_Template.xlsx" download="Sample_Template.xlsx"
+                    class="bg-indigo-800 hover:bg-indigo-900 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Download Sample Template
                 </a>
-                
+
                 <!-- Upload Group -->
-                <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-md">
+                <div class="flex items-center border border-indigo-200 rounded-lg overflow-hidden shadow-md">
                     <!-- Upload File Button -->
-                    <label for="fileUpload" class="cursor-pointer py-2 px-4 bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500">
-                        Upload File
-                        <input 
-                            type="file" 
-                            id="fileUpload" 
-                            accept=".xlsx" 
-                            class="hidden"
-                        >
+                    <label for="fileUpload"
+                        class="cursor-pointer py-2 px-4 bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-2 focus:ring-blue-500">
+                        Browse File &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="file" id="fileUpload" accept=".xlsx" class="hidden">
                     </label>
-                    
+
                     <!-- Upload and Process Button -->
                     <button onclick="processFile()"
-                        class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 focus:ring-2 focus:ring-green-500">
+                        class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 focus:ring-2 focus:ring-green-500">
                         Upload and Process
                     </button>
                 </div>
-                
+
                 <!-- Download Results Button -->
-                <button 
-                    class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" 
+                <button
+                    class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                     onclick="downloadResults()">
                     Download Results
                 </button>
             </div>
         </div>
     </div>
-    <!-- <div class="calculator">
-        <h2>Settlement Calculator</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th colspan="2">Input Fields</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Landing Price (Inc. GST) (A)</th>
-                    <td><input type="number" id="landingPrice" placeholder="Enter amount" oninput="calculateSettlement()"></td>
-                </tr>
-                <tr>
-                    <th>Margin% (B)</th>
-                    <td>
-                        <div class="input-container">
-                            <input type="number" id="marginPercent" placeholder="Enter %" oninput="calculateSettlement()">
-                            <span>%</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>GST% on Product (C)</th>
-                    <td>
-                        <div class="input-container">
-                            <input type="number" id="gstProductPercent" placeholder="Enter %" oninput="calculateSettlement()">
-                            <span>%</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Commission% (D)</th>
-                    <td>
-                        <div class="input-container">
-                            <input type="number" id="commissionPercent" placeholder="Enter %" oninput="calculateSettlement()">
-                            <span>%</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th colspan="2">Calculated Fields</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Margin in INR (F)</th>
-                    <td><span id="marginINR" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>Customer Selling Price (Exc. GST) (G)</th>
-                    <td><span id="sellingPriceExcGST" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>GST on Product in INR (H)</th>
-                    <td><span id="gstINR" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>Customer Selling Price (Inc. GST) (I)</th>
-                    <td><span id="sellingPriceIncGST" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>Commission Amount in INR (J)</th>
-                    <td><span id="commissionINR" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>GST on Commission in INR (K)</th>
-                    <td><span id="gstOnCommission" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>GST Input (L)</th>
-                    <td><span id="gstInput" class="calculated">0.00</span></td>
-                </tr>
-                <tr>
-                    <th>Seller Payout (M)</th>
-                    <td><span id="sellerPayout" class="calculated">0.00</span></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="bulk-upload">
-            <h3>Bulk Upload</h3>
-            <button class="template-button" onclick="downloadFile()">Download Sample Template</button>
-            <input type="file" id="fileUpload" accept=".xlsx">
-            <button class="upload-button" onclick="processFile()">Upload and Process</button>
-            <button class="download-button" onclick="downloadResults()">Download Results</button>
-        </div>
-    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-<script>
-    let processedData = [];
+    <script>
+        let processedData = [];
 
-    function calculateSettlement() {
-        const A = parseFloat(document.getElementById("landingPrice").value) || 0;
-        const B = (parseFloat(document.getElementById("marginPercent").value) || 0) / 100;
-        const C = (parseFloat(document.getElementById("gstProductPercent").value) || 0) / 100;
-        const D = (parseFloat(document.getElementById("commissionPercent").value) || 0) / 100;
-        const E = 0.18; // Fixed GST on commission
+        function calculateSettlement() {
+            const A = parseFloat(document.getElementById("landingPrice").value) || 0;
+            const B = (parseFloat(document.getElementById("marginPercent").value) || 0) / 100;
+            const C = (parseFloat(document.getElementById("gstProductPercent").value) || 0) / 100;
+            const D = (parseFloat(document.getElementById("commissionPercent").value) || 0) / 100;
+            const E = 0.18; // Fixed GST on commission
 
-        const F = A * B; // Margin in INR
-        const G = (A + F) / (1 - (1 + C) * D * (1 + E)+(1 + C) * D * (E)); // Selling Price Ex. GST
-        const H = G * C; // GST on Product in INR
-        const I = G + H; // Selling Price Inc. GST
-        const J = I * D; // Commission Amount
-        const K = J * E; // GST on Commission
-        const L = K; // GST Input
-        const M = I - J - K; // Seller Payout
+            const F = A * B; // Margin in INR
+            const G = (A + F) / (1 - (1 + C) * D * (1 + E) + (1 + C) * D * (E)); // Selling Price Ex. GST
+            const H = G * C; // GST on Product in INR
+            const I = G + H; // Selling Price Inc. GST
+            const J = I * D; // Commission Amount
+            const K = J * E; // GST on Commission
+            const L = K; // GST Input
+            const M = I - J - K; // Seller Payout
 
-        document.getElementById("marginINR").innerText = F.toFixed(2);
-        document.getElementById("sellingPriceExcGST").innerText = G.toFixed(2);
-        document.getElementById("gstINR").innerText = H.toFixed(2);
-        document.getElementById("sellingPriceIncGST").innerText = I.toFixed(2);
-        document.getElementById("commissionINR").innerText = J.toFixed(2);
-        document.getElementById("gstOnCommission").innerText = K.toFixed(2);
-        document.getElementById("gstInput").innerText = L.toFixed(2);
-        document.getElementById("sellerPayout").innerText = M.toFixed(2);
-    }
-
-    function processFile() {
-        const fileInput = document.getElementById("fileUpload");
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Please select a file to upload.");
-            return;
+            document.getElementById("marginINR").innerText = F.toFixed(2);
+            document.getElementById("sellingPriceExcGST").innerText = G.toFixed(2);
+            document.getElementById("gstINR").innerText = H.toFixed(2);
+            document.getElementById("sellingPriceIncGST").innerText = I.toFixed(2);
+            document.getElementById("commissionINR").innerText = J.toFixed(2);
+            document.getElementById("gstOnCommission").innerText = K.toFixed(2);
+            document.getElementById("gstInput").innerText = L.toFixed(2);
+            document.getElementById("sellerPayout").innerText = M.toFixed(2);
         }
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: "array" });
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        function processFile() {
+            const fileInput = document.getElementById("fileUpload");
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file to upload.");
+                return;
+            }
 
-            // Process the data
-            processedData = jsonData.slice(1).map(row => {
-                const [A, B, C, D] = row.map(val => parseFloat(val) || 0);
-                const E = 0.18; // Fixed GST on commission
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-                const F = A * B; // Margin in INR
-                const G = (A + F) / (1 - (1 + C) * D * (1 + E)+(1 + C) * D * (E)); // Selling Price Ex. GST
-                const H = G * C; // GST on Product
-                const I = G + H; // Selling Price Inc. GST
-                const J = I * D; // Commission Amount
-                const K = J * E; // GST on Commission
-                const M = I - J - K; // Seller Payout
+                // Process the data
+                processedData = jsonData.slice(1).map(row => {
+                    const [A, B, C, D] = row.map(val => parseFloat(val) || 0);
+                    const E = 0.18; // Fixed GST on commission
 
-                return [A, B, C, D, F, G, H, I, J, K, M];
-            });
+                    const F = A * B; // Margin in INR
+                    const G = (A + F) / (1 - (1 + C) * D * (1 + E) + (1 + C) * D * (E)); // Selling Price Ex. GST
+                    const H = G * C; // GST on Product
+                    const I = G + H; // Selling Price Inc. GST
+                    const J = I * D; // Commission Amount
+                    const K = J * E; // GST on Commission
+                    const M = I - J - K; // Seller Payout
 
-            alert("File processed successfully!");
-        };
-        reader.readAsArrayBuffer(file);
-    }
+                    return [A, B, C, D, F, G, H, I, J, K, M];
+                });
 
-    function downloadResults() {
-        if (!processedData.length) {
-            alert("No data to download. Please process a file first.");
-            return;
+                alert("File processed successfully!");
+            };
+            reader.readAsArrayBuffer(file);
         }
 
-        const workbook = XLSX.utils.book_new();
-        const data = [
-            ["Landing Price", "Margin%", "GST%", "Commission%", "Margin INR", "Selling Price (Ex. GST)", "GST INR", "Selling Price (Inc. GST)", "Commission INR", "GST on Commission INR", "Seller Payout"],
-            ...processedData
-        ];
-        const worksheet = XLSX.utils.aoa_to_sheet(data);
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Processed Data");
-        XLSX.writeFile(workbook, "Processed_Results.xlsx");
-    }
-</script>
+        function downloadResults() {
+            if (!processedData.length) {
+                alert("No data to download. Please process a file first.");
+                return;
+            }
+
+            const workbook = XLSX.utils.book_new();
+            const data = [
+                ["Landing Price", "Margin%", "GST%", "Commission%", "Margin INR", "Selling Price (Ex. GST)", "GST INR", "Selling Price (Inc. GST)", "Commission INR", "GST on Commission INR", "Seller Payout"],
+                ...processedData
+            ];
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Processed Data");
+            XLSX.writeFile(workbook, "Processed_Results.xlsx");
+        }
+    </script>
